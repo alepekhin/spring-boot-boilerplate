@@ -39,6 +39,7 @@ sh docker-build.sh
 and run it as
 ```
 sh docker-run.sh
+```
 
 ## How to test
 
