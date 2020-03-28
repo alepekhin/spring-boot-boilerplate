@@ -13,16 +13,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class HealthCheckService {
-	
+
 	HealthCheck checkHealth() throws JsonParseException, JsonMappingException, IOException {
 		HealthCheck healthCheck = new HealthCheck();
 		InputStream inputStream = this.getClass().getResourceAsStream("/git.properties");
-		Scanner scanner = new Scanner(inputStream).useDelimiter("\\A");
-		String content = scanner.hasNext() ? scanner.next() : "";
-		ObjectMapper mapper = new ObjectMapper();
-		Map<String, String> map = mapper.readValue(content, Map.class);
-		healthCheck.branch = map.get("git.branch");
-		healthCheck.gitVersion = map.get("git.commit.id.abbrev");
+		// when scanner closes inputStream will be closed too 
+		try (Scanner scanner = new Scanner(inputStream)) {
+			scanner.useDelimiter("\\A");
+			String content = scanner.hasNext() ? scanner.next() : "";
+			ObjectMapper mapper = new ObjectMapper();
+			Map<String, String> map = mapper.readValue(content, Map.class);
+			healthCheck.branch = map.get("git.branch");
+			healthCheck.gitVersion = map.get("git.commit.id.abbrev");
+		}
 		return healthCheck;
 	}
 }
