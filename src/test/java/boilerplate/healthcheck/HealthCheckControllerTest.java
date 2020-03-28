@@ -17,19 +17,19 @@ import org.springframework.test.web.servlet.MockMvc;
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(HealthCheckController.class)
 public class HealthCheckControllerTest {
-	
+
 	@Autowired
 	private MockMvc mockMvc;
-	
+
 	@MockBean
-    private HealthCheckService healthCheckService;
-	
+	private HealthCheckService healthCheckService;
+
 	@Test
 	public void healthcheck() throws Exception {
 		HealthCheck healthCheck = new HealthCheck();
 		given(healthCheckService.checkHealth()).willReturn(healthCheck);
-	    this.mockMvc.perform(get("/healthcheck")).andExpect(status().isOk())
-	        .andExpect(content().string(containsString("branch")));
+		this.mockMvc.perform(get("/healthcheck")).andExpect(status().isOk())
+				.andExpect(content().string(containsString("branch")));
 	}
-	
+
 }
