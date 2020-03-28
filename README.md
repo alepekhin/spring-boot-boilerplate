@@ -16,6 +16,11 @@ Facilitate writing SpringBoot micro services from scratch.
 Project contains swagger, spring security, healthcheck endpoint,  
 jUpiter for tests and jacoco plugin for test coverage.
 
+## Prerequsites
+
+To build and test the project  
+you need java 8 and maven 3 installed on your local machine
+
 ## How to run
 
 - After cloning the project execute in command line  
@@ -34,4 +39,13 @@ sh docker-build.sh
 and run it as
 ```
 sh docker-run.sh
+
+## How to test
+
 ```
+mvn test
+```
+
+As jacoco plugin is bound to test phase you automatically get  
+test coverage report in `target/site/jacoco/index.html`
+if all tests passed.

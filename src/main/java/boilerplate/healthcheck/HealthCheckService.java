@@ -14,7 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Service
 public class HealthCheckService {
 	
-	public HealthCheck checkHealth() throws JsonParseException, JsonMappingException, IOException {
+	HealthCheck checkHealth() throws JsonParseException, JsonMappingException, IOException {
 		HealthCheck healthCheck = new HealthCheck();
 		InputStream inputStream = this.getClass().getResourceAsStream("/git.properties");
 		Scanner scanner = new Scanner(inputStream).useDelimiter("\\A");
